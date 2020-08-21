@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import connection from '../helpers/data/connection';
 import Navbar from '../components/Navbar/Navbar';
+import Team from '../components/Team/Team';
 import './App.scss';
 
 connection();
@@ -28,9 +29,17 @@ class App extends React.Component {
   render() {
     const { authed } = this.state;
 
+    const loadComponent = () => {
+      if (authed) {
+        return <Team />;
+      }
+      return '';
+    };
+
     return (
       <div className="App">
         <Navbar authed={authed}/>
+        {loadComponent()}
       </div>
     );
   }
