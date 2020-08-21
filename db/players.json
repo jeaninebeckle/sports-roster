@@ -3,33 +3,33 @@
     "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8474141@2x.jpg",
     "name": "Patrick Kane",
     "position": "Right Wing",
-    "uid": ""
+    "uid": "C5iDEqjsXDMUekjST74cwtfhu2N2"
   },
 
   "player2": {
     "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8473604@2x.jpg",
     "name": "Jonathan Toews",
     "position": "Center",
-    "uid": ""
+    "uid": "C5iDEqjsXDMUekjST74cwtfhu2N2"
   },
 
   "player3": {
     "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8470281.jpg",
     "name": "Duncan Keith",
     "position": "Defense",
-    "uid": ""
+    "uid": "C5iDEqjsXDMUekjST74cwtfhu2N2"
   },
 
   "player4": {
     "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8470645.jpg",
     "name": "Corey Crawford",
     "position": "Goalie",
-    "uid": ""
+    "uid": "C5iDEqjsXDMUekjST74cwtfhu2N2"
   },
   "player5": {
     "imageUrl": "https://nhl.bamcontent.com/images/headshots/current/168x168/8476438.jpg",
     "name": "Brandon Saad",
     "position": "Left Wing",
-    "uid": ""
+    "uid": "C5iDEqjsXDMUekjST74cwtfhu2N2"
   }
 }
