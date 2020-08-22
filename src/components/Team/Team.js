@@ -14,10 +14,16 @@ class Team extends React.Component {
       .catch((err) => console.error('get players broke', err));
   }
 
+  deletePlayer = (playerId) => {
+    playersData.deletePlayer(playerId)
+      .then(() => {})
+      .catch((err) => console.error('delete player failed', err));
+  }
+
   render() {
     const { players } = this.state;
 
-    const playerCards = players.map((player) => <Player key={player.id} player={player} />);
+    const playerCards = players.map((player) => <Player key={player.id} player={player} deletePlayer={this.deletePlayer}/>);
 
     return (
       <div>
