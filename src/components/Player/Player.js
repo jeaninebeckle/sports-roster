@@ -1,10 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import playerShape from '../../helpers/props/playerShape';
 import './Player.scss';
 
 class Player extends React.Component {
   static propTypes = {
     player: playerShape.playerShape,
+    deletePlayer: PropTypes.func.isRequired,
+  }
+
+  deletePlayerEvent = (e) => {
+    e.preventDefault();
+    const { player, deletePlayer } = this.props;
+    deletePlayer(player.id);
   }
 
   render() {
@@ -18,6 +26,7 @@ class Player extends React.Component {
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{player.position}</li>
+        <li className="list-group-item"><button className="btn btn-outline-danger" onClick={this.deletePlayerEvent}>Delete</button></li>
       </ul>
     </div>
      </div>
