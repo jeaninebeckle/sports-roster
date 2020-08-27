@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Player from '../Player/Player';
 import PlayerForm from '../PlayerForm/PlayerForm';
 import playersData from '../../helpers/data/playersData';
@@ -9,6 +9,7 @@ class Team extends React.Component {
   state = {
     players: [],
     addForm: false,
+    editPlayer: {},
   }
 
   getPlayers = () => {
@@ -36,6 +37,10 @@ class Team extends React.Component {
         this.setState({ addForm: false });
       })
       .catch((err) => console.error('create player broke', err));
+  }
+
+  editAPlayer = (playerToEdit) => {
+    this.setState({ })
   }
 
   render() {
