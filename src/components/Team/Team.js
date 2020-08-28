@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Player from '../Player/Player';
 import PlayerForm from '../PlayerForm/PlayerForm';
 import playersData from '../../helpers/data/playersData';
@@ -8,7 +7,7 @@ import authData from '../../helpers/data/authData';
 class Team extends React.Component {
   state = {
     players: [],
-    addForm: false,
+    showForm: false,
     editPlayer: {},
   }
 
@@ -34,25 +33,34 @@ class Team extends React.Component {
     playersData.createPlayer(newPlayer)
       .then(() => {
         this.getPlayers();
-        this.setState({ addForm: false });
+        this.setState({ showForm: false });
       })
       .catch((err) => console.error('create player broke', err));
   }
 
   editAPlayer = (playerToEdit) => {
-    this.setState({ })
+    this.setState({ showForm: true, editPlayer: playerToEdit });
+  }
+
+  updatePlayer = (playerId, editedPlayer) => {
+    playersData.updatePlayer(playerId, editedPlayer)
+      .then(() => {
+        this.getPlayers();
+        this.setState({ showForm: false, editPlayer: {} });
+      })
+      .catch((err) => console.error('update player ain\'t happenin', err));
   }
 
   render() {
-    const { players, addForm } = this.state;
+    const { players, showForm, editPlayer } = this.state;
 
-    const playerCards = players.map((player) => <Player key={player.id} player={player} deletePlayer={this.deletePlayer}/>);
+    const playerCards = players.map((player) => <Player key={player.id} player={player} deletePlayer={this.deletePlayer} editAPlayer={this.editAPlayer}/>);
 
     return (
       <div>
         <h2>Chicago Blackhawks</h2>
-        <button className="btn btn-outline-light m-3" onClick = {() => { this.setState({ addForm: !addForm }); }}>Add A Player</button>
-        { addForm ? <PlayerForm createPlayer={this.createPlayer}/> : '' }
+        <button className="btn btn-outline-light m-3" onClick = {() => { this.setState({ showForm: !showForm }); }}>Add A Player</button>
+        { showForm ? <PlayerForm createPlayer={this.createPlayer} editingPlayer={editPlayer} updatePlayer={this.updatePlayer}/> : '' }
         <div className="card-columns">
         { playerCards }
         </div>

@@ -7,6 +7,7 @@ class Player extends React.Component {
   static propTypes = {
     player: playerShape.playerShape,
     deletePlayer: PropTypes.func.isRequired,
+    editAPlayer: PropTypes.func.isRequired,
   }
 
   deletePlayerEvent = (e) => {

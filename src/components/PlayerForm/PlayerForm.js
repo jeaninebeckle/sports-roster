@@ -5,12 +5,27 @@ import authData from '../../helpers/data/authData';
 class PlayerForm extends React.Component {
   static propTypes = {
     createPlayer: PropTypes.func.isRequired,
+    updatePlayer: PropTypes.func.isRequired,
+    editingPlayer: PropTypes.object.isRequired,
   }
 
   state = {
     imageUrl: '',
     name: '',
     position: '',
+    isEditing: false,
+  }
+
+  componentDidMount() {
+    const { editingPlayer } = this.props;
+    if (editingPlayer.name) {
+      this.setState({
+        name: editingPlayer.name,
+        imageUrl: editingPlayer.imageUrl,
+        position: editingPlayer.position,
+        isEditing: true,
+      });
+    }
   }
 
   changeImgEvent = (e) => {
@@ -43,23 +58,47 @@ class PlayerForm extends React.Component {
     createPlayer(newPlayer);
   }
 
+  editPlayerEvent = (e) => {
+    e.preventDefault();
+    const { imageUrl, name, position } = this.state;
+    const { updatePlayer, editingPlayer } = this.props;
+
+    const playerWithChanges = {
+      imageUrl,
+      name,
+      position,
+      uid: authData.getUid(),
+    };
+
+    updatePlayer(editingPlayer.id, playerWithChanges);
+  }
+
   render() {
-    // const { imageUrl, name, position } = this.state;
+    const {
+      imageUrl,
+      name,
+      position,
+      isEditing,
+    } = this.state;
     return (
       <form className="col-6 offset-3">
         <div className="form-group">
           <label htmlFor="playerName">Player Name</label>
-          <input type="text" className="form-control" id="playerName" placeholder="Enter Player Name" onChange={this.changeNameEvent}/>
+          <input type="text" className="form-control" id="playerName" placeholder="Enter Player Name" value={name} onChange={this.changeNameEvent}/>
         </div>
         <div className="form-group">
           <label htmlFor="position">Player Position</label>
-          <input type="text" className="form-control" id="position" placeholder="Enter Player Position" onChange={this.changePositionEvent}/>
+          <input type="text" className="form-control" id="position" placeholder="Enter Player Position" value={position} onChange={this.changePositionEvent}/>
         </div>
         <div className="form-group">
           <label htmlFor="playerImg">Player Image URL</label>
-          <input type="text" className="form-control" id="playerImg" placeholder="Enter Player Image URL" onChange={this.changeImgEvent}/>
+          <input type="text" className="form-control" id="playerImg" placeholder="Enter Player Image URL" value={imageUrl} onChange={this.changeImgEvent}/>
         </div>
-         <button className="btn btn-outline-light" onClick={this.savePlayerEvent}>Save Player</button>
+        {
+          isEditing
+            ? <button className="btn btn-outline-light" onClick={this.editPlayerEvent}>Edit Player</button>
+            : <button className="btn btn-outline-light" onClick={this.savePlayerEvent}>Save Player</button>
+        }
       </form>
 
     );
