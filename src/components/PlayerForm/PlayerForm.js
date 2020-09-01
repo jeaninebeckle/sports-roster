@@ -7,6 +7,7 @@ class PlayerForm extends React.Component {
     createPlayer: PropTypes.func.isRequired,
     updatePlayer: PropTypes.func.isRequired,
     editingPlayer: PropTypes.object.isRequired,
+    closeForm: PropTypes.func.isRequired,
   }
 
   state = {
@@ -24,6 +25,20 @@ class PlayerForm extends React.Component {
         imageUrl: editingPlayer.imageUrl,
         position: editingPlayer.position,
         isEditing: true,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevPlayer = prevProps.editingPlayer;
+    const incomingPlayer = this.props.editingPlayer;
+    if (prevPlayer.name !== incomingPlayer.name) {
+      this.setState({
+        name: incomingPlayer.name || '',
+        imageUrl: incomingPlayer.imageUrl || '',
+        position: incomingPlayer.position || '',
+        // eslint-disable-next-line no-unneeded-ternary
+        isEditing: incomingPlayer.name ? true : false,
       });
     }
   }

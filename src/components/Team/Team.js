@@ -51,6 +51,10 @@ class Team extends React.Component {
       .catch((err) => console.error('update player ain\'t happenin', err));
   }
 
+  closeForm = () => {
+    this.setState({ formOpen: false });
+  }
+
   render() {
     const { players, showForm, editPlayer } = this.state;
 
@@ -59,8 +63,8 @@ class Team extends React.Component {
     return (
       <div>
         <h2>Chicago Blackhawks</h2>
-        <button className="btn btn-outline-light m-3" onClick = {() => { this.setState({ showForm: !showForm }); }}>Add A Player</button>
-        { showForm ? <PlayerForm createPlayer={this.createPlayer} editingPlayer={editPlayer} updatePlayer={this.updatePlayer}/> : '' }
+        {!showForm ? <button className="btn btn-outline-light m-3" onClick = {() => { this.setState({ showForm: true, editBoard: {} }); }}>Add A Player</button> : ''}
+        { showForm ? <PlayerForm createPlayer={this.createPlayer} editingPlayer={editPlayer} updatePlayer={this.updatePlayer} closeForm={this.closeForm}/> : '' }
         <div className="card-columns">
         { playerCards }
         </div>
